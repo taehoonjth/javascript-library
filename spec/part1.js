@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  describe('파트 1', function() {
+  describe('내가 만드는 라이브러리 프로젝트', function() {
 
     describe('identity', function() {
       checkForNativeMethods(function() {
@@ -22,7 +22,7 @@
         _.first([1,2,3]);
       });
 
-      it('배열에서 첫번째 원소를 반환해야 합니다', function() {
+      it('배열에서 첫번째 요소를 반환해야 합니다', function() {
         expect(_.first([1,2,3])).to.equal(1);
       });
 
@@ -44,7 +44,7 @@
         _.last([1,2,3]);
       });
 
-      it('배열의 마지막 원소를 반화해야합니다', function() {
+      it('인덱스 인자가 없을 때는 배열의 마지막 원소를 반환해야합니다', function() {
         expect(_.last([1,2,3])).to.equal(3);
       });
 
@@ -275,33 +275,9 @@
         _.uniq([1, 2, 3, 4])
       });
 
-      it('입력된 배열을 수정하면 안됩니다', function() {
+      it('인자로 받은 배열을 수정하면 안됩니다', function() {
         var input = [1,2,3,4,5];
         var result = _.uniq(input);
-
-        /*
-         * Mutation of inputs should be avoided without good justification otherwise
-         * as it can often lead to hard to find bugs and confusing code!
-         * Imagine we were reading the code above, and we added the following line:
-         *
-         * var lastElement = input[input.length - 1];
-         *
-         * Without knowing that mutation occured inside of _.uniq,
-         * we would assume that `lastElement` is 5. But if inside of
-         * _.uniq, we use the array method `pop`, we would permanently
-         * change `input` and our assumption would not longer be true,
-         * `lastElement` would be 4 instead!
-         *
-         * The tricky part is that we have no way of knowing about the mutation
-         * just by looking at the code above. We'd have to dive into the
-         * implementation of _.uniq to the exact line that uses `pop`.
-         * If we write a lot of code with this assumption, it might be very hard
-         * to trace back to the correct line in _.uniq.
-         *
-         * You can avoid an entire class of bugs by writing functions
-         * that don't mutate their inputs!
-         */
-
         expect(input).to.eql([1,2,3,4,5])
       });
 
@@ -329,30 +305,6 @@
       it('제공된 배열을 수정하면 안됩니다', function() {
         var input = [1,2,3,4,5];
         var result = _.map(input, function(num) { /* noop */ });
-
-        /*
-         * Mutation of inputs should be avoided without good justification otherwise
-         * as it can often lead to hard to find bugs and confusing code!
-         * Imagine we were reading the code above, and we added the following line:
-         *
-         * var lastElement = input[input.length - 1];
-         *
-         * Without knowing that mutation occured inside of map,
-         * we would assume that `lastElement` is 5. But if inside of
-         * map, we use the array method `pop`, we would permanently
-         * change `input` and our assumption would not longer be true,
-         * `lastElement` would be 4 instead!
-         *
-         * The tricky part is that we have no way of knowing about the mutation
-         * just by looking at the code above. We'd have to dive into the
-         * implementation of map to the exact line that uses `pop`.
-         * If we write a lot of code with this assumption, it might be very hard
-         * to trace back to the correct line in map.
-         *
-         * You can avoid an entire class of bugs by writing functions
-         * that don't mutate their inputs!
-         */
-
         expect(input).to.eql([1,2,3,4,5])
       });
 
@@ -374,37 +326,6 @@
       });
     });
 
-    describe('pluck', function() {
-      checkForNativeMethods(function() {
-        var people = [
-          { name: 'moe', age: 30 },
-          { name: 'curly', age: 50 }
-        ];
-
-        _.pluck(people, 'name');
-      });
-
-      it('제공된 키(key)에 해당하는 값만 반환해야 합니다', function() {
-        var people = [
-          { name: 'moe', age: 30 },
-          { name: 'curly', age: 50 }
-        ];
-
-        expect(_.pluck(people, 'name')).to.eql(['moe', 'curly']);
-      });
-
-      it('제공된 배열을 수정하면 안됩니다', function() {
-        var people = [
-          { name: 'moe', age: 30 },
-          { name: 'curly', age: 50 }
-        ];
-
-        _.pluck(people, 'name');
-
-        expect(people).to.eql([{ name: 'moe', age: 30 }, { name: 'curly', age: 50 }]);
-      });
-    });
-
     describe('reduce', function() {
       checkForNativeMethods(function() {
         var add = function(tally, item) {return tally + item; };
@@ -423,30 +344,6 @@
       it('제공된 배열을 수정하면 안됩니다', function() {
         var input = [1,2,3,4,5];
         var result = _.reduce(input, function(memo, item) {return item;});
-        
-        /*
-         * Mutation of inputs should be avoided without good justification otherwise
-         * as it can often lead to hard to find bugs and confusing code!
-         * Imagine we were reading the code above, and we added the following line:
-         *
-         * var lastElement = input[input.length - 1];
-         *
-         * Without knowing that mutation occured inside of _.reduce,
-         * we would assume that `lastElement` is 5. But if inside of
-         * _.reduce, we use the array method `pop`, we would permanently
-         * change `input` and our assumption would not longer be true,
-         * `lastElement` would be 4 instead!
-         *
-         * The tricky part is that we have no way of knowing about the mutation
-         * just by looking at the code above. We'd have to dive into the
-         * implementation of _.reduce to the exact line that uses `pop`.
-         * If we write a lot of code with this assumption, it might be very hard
-         * to trace back to the correct line in _.reduce.
-         *
-         * You can avoid an entire class of bugs by writing functions
-         * that don't mutate their inputs!
-         */
-
         expect(input).to.eql([1,2,3,4,5])
       });
 
@@ -462,7 +359,7 @@
         expect(itemInCallback).to.equal('item');
       });
 
-      it('배열의 원소들을 콜백 함수에게 전달할 때 왼쪽에서 오른쪽 순서대로 전달해야 합니다', function() {
+      it('배열의 요소들을 콜백 함수에게 전달할 때 왼쪽에서 오른쪽 순서대로 전달해야 합니다', function() {
         var orderTraversed = [];
 
         _.reduce([1,2,3,4], function(memo, item) {
